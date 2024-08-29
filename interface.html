@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Cooking Machine</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: #650755;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 50px;
+            color: #ffffff;
+            background-color: #9b3475;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #802564;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        }
+        button, select, input[type="number"] {
+            margin-top: 15px;
+            padding: 12px 25px;
+            font-size: 20px;
+            background-color: #d37cc4;
+            color: #000;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        button:hover, select:hover, input[type="number"]:hover {
+            background-color: #eb74dd;
+            transform: scale(1.05);
+        }
+        input[type="number"], select {
+            width: 100%;
+            background-color: #d37cc4;
+            color: #000;
+            text-align: center;
+        }
+        select {
+            background-color: #9f4991;
+        }
+        .timer-display {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Smart Cooking Machine</h1>
+    <div class="container">
+        <button id="chooseFoodBtn">Choose Food</button>
+        <select id="foodCategories">
+            <option value="Soup">Soup</option>
+            <option value="Pasta">Pasta</option>
+            <option value="Rice">Rice</option>
+            <option value="Vegetables">Vegetables</option>
+        </select>
+        <input type="number" id="heatingTime" placeholder="Enter Heating Time (in minutes)">
+        <button id="startTimerBtn">Start Timer</button>
+        <div id="timerDisplay" class="timer-display">Time Left: --</div>
+    </div>
+
+    <script>
+        document.getElementById("chooseFoodBtn").addEventListener("click", function() {
+            var foodCategory = document.getElementById("foodCategories").value;
+            alert("Selected Food: " + foodCategory);
+        });
+
+        document.getElementById("startTimerBtn").addEventListener("click", function() {
+            var heatingTime = parseInt(document.getElementById("heatingTime").value);
+            if (!isNaN(heatingTime) && heatingTime > 0) {
+                alert("Heating for " + heatingTime + " minutes...");
+                startTimer(heatingTime);
+            } else {
+                alert("Please enter a valid heating time.");
+            }
+        });
+
+        function startTimer(minutes) {
+            var timerDisplay = document.getElementById("timerDisplay");
+            var seconds = minutes * 60;
+            var interval = setInterval(function() {
+                var min = Math.floor(seconds / 60);
+                var sec = seconds % 60;
+
+                timerDisplay.innerText = "Time Left: " + min + "m " + sec + "s";
+
+                seconds--;
+
+                if (seconds < 0) {
+                    clearInterval(interval);
+                    timerDisplay.innerText = "Food is prepared!";
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
